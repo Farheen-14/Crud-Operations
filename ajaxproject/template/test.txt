@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <div class="col-lg-8 border border-primary rounded p-4 m-4 mx-auto">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                    aria-controls="nav-home" aria-selected="true">Add Book</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                    aria-controls="nav-profile" aria-selected="false">Show Book</a>
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+                    aria-controls="nav-contact" aria-selected="false">Delete Book</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="col-lg-5 mx-auto border border-success rounded p-3 m-3">
+                    <h4 class="alert alert-info">Add Book</h4>
+                    <div class="from-group">
+                        <label>Book Name</label>
+                        <input type="text" name="name" class="form-control" id="book_name">
+                    </div>
+                    <div class="from-group">
+                        <label>Price of Book</label>
+                        <input type="number" name="price" class="form-control" id="book_price">
+                    </div>
+                    <div class="from-group">
+                        <label>Number of Pages</label>
+                        <input type="number" name="page" class="form-control" id="book_page">
+                    </div>
+                    <br>
+                    <div class="from-group">
+                        <button class="btn form-control  btn-success" id="save_book">Save Book</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <h2 class="alert alert-success">Show Book</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum dolor nulla molestias quisquam,
+                    tempore ipsum rerum voluptates voluptate quidem, amet exercitationem reiciendis aliquam minima!
+                    Nobis perspiciatis debitis dolore eaque veritatis!</p>
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <h2 class="alert alert-danger">Delete Book</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi unde expedita corporis, laborum
+                    reiciendis maxime, veritatis nemo odio commodi voluptatem a aliquam dolorem ipsum corrupti quam
+                    delectus assumenda placeat autem!</p>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+        <script>
+            var btn = document.getElementById('save_book');
+    
+            btn.addEventListener('click', alertMe); //we are using alertme function name instead of saveBook
+    
+            function alertMe() {
+                var name = document.getElementById('book_name').value;
+                var price = document.getElementById('book_price').value;
+                var page = document.getElementById('book_page').value;
+                var url = '/sav_book?name=' + name + '&price=' + price + '&page=' + page;
+                var req = new XMLHttpRequest();
+                req.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        alert(req.responseText)
+                        //document.getElementById("demo").innerHTML = this.responseText;
+                    }
+                };
+                //req.open("GET", "ajax_info.txt", true);
+                req.open("GET", url, true);
+                req.send();
+            }
+        </script>
+    
+    </body>
+
+
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" id="ajax_input" >
+    <button type="submit" id="ajax_ca">Submit</button>
+
+    <script>
+  
+  function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+      c_start = document.cookie.indexOf(c_name + '=');
+      if (c_start != -1) {
+        c_start = c_start + c_name.length + 1;
+        c_end = document.cookie.indexOf(';', c_start);
+        if (c_end == -1) c_end = document.cookie.length;
+        return unescape(document.cookie.substring(c_start, c_end));
+      }
+    }
+    return '';
+  }
+
+
+    $("#ajax_ca").click(function(){
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'ajax_call' %}",
+        headers: { 'X-CSRFToken': getCookie('csrftoken') },
+        data: {
+          ajax_input_value: $('#ajax_input').val(),
+        },
+        
+        success: function() {
+          Swal.fire({
+                  title:
+                '<strong>No applications were found for given filters.</strong>',
+                  html: '',
+        
+            })
+        },
+        error: function() {
+          alert('fail')
+        }
+      })
+    })
+  </script>
+</body>
+</html>

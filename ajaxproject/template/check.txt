@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Ajax test </title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <form action="">
+            <!-- <b id="msg"></b> -->
+            <input type="text" class="form-control" name="age" id="age"><br>
+            <button class="btn btn-danger" id="mainbtn">Submit</button>
+        </form>
+    </div>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
+    <script type="text/javascript">
+        function getCookie(c_name) {
+            if (document.cookie.length > 0) {
+              c_start = document.cookie.indexOf(c_name + '=');
+              if (c_start != -1) {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(';', c_start);
+                if (c_end == -1) c_end = document.cookie.length;
+                return unescape(document.cookie.substring(c_start, c_end));
+              }
+            }
+            return '';
+        }
+        $('#mainbtn').click(function () {
+            //age = document.getElementById('age').val();
+            $.ajax({
+                type: "GET",
+                url: "{% url 'save' %}",
+                headers: { 'X-CSRFToken': getCookie('csrftoken') },              
+                data: {
+                    //name: $("#userid").val(),
+                    age  : $("#age").val(),
+                },
+                //success: function (data) {
+                    //document.forms[0].remove();
+                    //document.getElementById('msg').innerText = data;
+                    //$( '#like'+ catid ).remove();
+                    //$( '#message' ).text(data);
+                //}
+                success: function() {
+                    console.log("ho rha hai")
+                          alert('success')
+          
+                        
+                  },
+                  error: function() {
+                    alert('fail')
+                  }
+            })
+        });
+    </script>
+
+
+</body>
+
+</html>

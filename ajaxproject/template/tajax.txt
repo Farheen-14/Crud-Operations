@@ -1,0 +1,171 @@
+<script>
+    function getCookie(c_name) {
+        if (document.cookie.length > 0) {
+            c_start = document.cookie.indexOf(c_name + '=');
+            if (c_start != -1) {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(';', c_start);
+                if (c_end == -1) c_end = document.cookie.length;
+                return unescape(document.cookie.substring(c_start, c_end));
+            }
+        }
+        return '';
+    }
+
+    $("#btnsave").click(function () {
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'save' %}",
+            headers: { 'X-CSRFToken': getCookie('csrftoken') },
+            data: {
+                //ajax_input_value: $('#ajax_input').val(),
+                name: $("#nameid").val(),
+                email: $("#emailid").val(),
+                password: $("#passwordid").val(),
+            },
+            success: function (data) {
+                console.log(data);
+                 console.log(nm);
+                 console.log(em);
+                 console.log(pw);
+                alert("success")
+            },
+            error: function () {
+                alert('fail')
+            }
+        })
+    })
+</script>
+
+
+home.html
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Ajax CRUD </title>
+ <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h4 class="text-center alert alert-danger">Django Function Based CRUD Project Using Ajax </h4>
+        <div class="row">
+            <div class="col-sm-4">
+                <h4 class="text-center alert alert-info">Add/Update</h4>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email">User Name</label>
+                        <input type="name" class="form-control" name="name" id="userid" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address:</label>
+                        <input type="email" class="form-control" name="email" id="emailid" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" name="password" id="passwordid" required>
+                    </div>
+                </form>
+                <button class="btn btn-primary" id="btnsave">Save</button>
+            </div>
+            <div class="col-sm-7">
+                <h4 class="text-center alert alert-info">Show Student Information</h4>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.password}}</td>
+                            <td><button data-sid="{{i.id}}" class="btn btn-primary btn-sm">Edit</button>
+                                <button data-sid="{{i.id}}" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                            <!-- <td><input type="button" data-sid="{{i.id}}" class="btn btn-primary btn-sm" value="Edit"></td> -->
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+<script>
+       function getCookie(c_name) {
+            if (document.cookie.length > 0) {
+                c_start = document.cookie.indexOf(c_name + '=');
+                if (c_start != -1) {
+                    c_start = c_start + c_name.length + 1;
+                    c_end = document.cookie.indexOf(';', c_start);
+                    if (c_end == -1) c_end = document.cookie.length;
+                    return unescape(document.cookie.substring(c_start, c_end));
+                }
+            }
+            return '';
+        }
+
+
+        $("#btnsave").click(function () {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'save' %}",
+                headers: { 'X-CSRFToken': getCookie('csrftoken') },
+                data: {
+                    name: $("#userid").val(),
+                    email: $("#emailid").val(),
+                    password: $("#passwordid").val(),
+                },
+                //success: function (data) {
+                success: function () {
+                        console.log("successss")
+                        print(data)
+                        print(name)
+                        console.log(name)
+                        console.log(email)
+
+                    alert('run ker rha')
+
+                 
+                    //alert("success")
+                },
+                error: function () {
+                    alert('fail')
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
+
+<!-- console.log(name);
+console.log(email);
+console.log(password); -->

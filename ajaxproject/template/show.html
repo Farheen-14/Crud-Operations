@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %} <link rel="stylesheet" href="{% static 'show.css' %}"> {% endcomment %}
+    <title>Show Data</title>
+</head>
+<body>
+    {{msg}}
+    <h2 id="head">Show All Data</h2>
+    <div id="SecondDiv">
+        <form action="/">
+            <input type="Submit" value="<< Back">
+        </form>
+    </div>
+    <div id="OneDiv">
+        <table>
+            <thead>
+                <th scope="col">User_ID</th>
+                <th>ID</th>
+                <th>Data 1</th>
+                <th>Data 2</th>
+                <th>Buttons</th>
+            </thead>
+            {% for d in data %}
+                <tr>
+                    <td>{{d.stuid}}</td>
+                    <td>{{d.ID}}</td>
+                    <td>{{d.data1}}</td>
+                    <td>{{d.data2}}</td>
+                    <td>
+                        <a href="/edit?id={{d.ID}}">Edit</a>
+                        <a href="/delete?id={{d.ID}}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+<style>
+body
+{
+    background-color: rgb(107, 189, 152);
+}
+
+#head
+{
+    text-align: center;
+    max-width: 80%;
+    margin-left: 9%;
+    padding: 0.5%;
+    background-color: rgb(226, 225, 223);
+}
+
+table{
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 95%;
+    margin: 20px;
+    margin-bottom: 30px;
+}
+
+td,th{
+    border: 2px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even){
+    background-color: #18c577;
+}
+</style>
+</body>
+</html>

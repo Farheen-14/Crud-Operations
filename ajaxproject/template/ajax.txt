@@ -1,0 +1,56 @@
+<script>
+
+    $("#btnsave").click(function () {
+        var nm = $("#nameid").val();
+        var em = $("#emailid").val();
+        var pw = $("#passwordid").val();
+        var csr = $("input[name=csrfmiddlewaretoken").val();
+        if (nm == "") {
+            console.log("Enter Name")
+        }
+        else if (em == "") {
+            console.log("Enter Email")
+        }
+        else if (pw == "") {
+            console.log("Enter Password")
+        }
+        else {
+            //console.log(nm);
+            //console.log(em);
+            //console.log(pw);
+            mydata = { name: nm, email: em, password: pw , csrfmiddlewaretoken:csr};
+            //mydata = { name: nm, email: em, password: pw};
+        
+            $.ajax({
+                url: "{% url 'save' %}",
+                method: "POST",
+                data: mydata,
+                //headers: { 'X-CSRFToken': getCookie('csrftoken') },
+                success: function (data) {
+                    //console.log(data.status)
+                    alert("success",data)
+                },
+                error: function () {
+                    alert('fail')
+                }
+            });
+        }
+
+        //alert();
+
+    });
+</script>
+
+<!-- function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+      c_start = document.cookie.indexOf(c_name + '=');
+      if (c_start != -1) {
+        c_start = c_start + c_name.length + 1;
+        c_end = document.cookie.indexOf(';', c_start);
+        if (c_end == -1) c_end = document.cookie.length;
+        return unescape(document.cookie.substring(c_start, c_end));
+      }
+    }
+    return '';
+  } -->
+
